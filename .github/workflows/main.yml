@@ -1,0 +1,66 @@
+name: learn-github-actions
+on: [push]
+jobs:
+ build:
+  runs-on: windows-latest   # alternate runner OS is: ubuntu-latest
+  env:
+      RUNNER_DEBUG: 1
+      URL_DYNAMICS: 'https://pruebasminsait.crm4.dynamics.com'
+      USER_DYNAMICS: 'cglopezs@tecxrm.com'
+      PASS_DYNAMICS: 'StadRUx2-heT'
+      SOLUTION_NAME: 'TestingGitHub'
+      SOLUTION_EXPORTED_FOLDER: 'out/exported/'
+      SOLUTION_FOLDER: 'out/solutions/'
+      SOLUTION_TARGET_FOLDER: 'solutions/'
+      URL_DYNAMICS_PRODUCTION: 'https://orgc5b8a32c.crm.dynamics.com'
+      USER_DYNAMICS_PRODUCTION: 'pipetestsntI@TESTMIN967.onmicrosoft.com'
+      PASS_DYNAMICS_PRODUCTION: 'TrialSNT0108'
+      
+  steps:     
+    - uses: actions/checkout@v2
+      with:
+        lfs: true
+        
+    - name: who-am-i action
+      uses: microsoft/powerplatform-actions/who-am-i@v0
+      with:
+        environment-url: ${{ env.URL_DYNAMICS }}
+        user-name: ${{ env.USER_DYNAMICS }}
+        password-secret: ${{ env.PASS_DYNAMICS }}
+        
+    - name: Export Solution
+      uses: microsoft/powerplatform-actions/export-solution@v0
+      with:
+        environment-url: ${{ env.URL_DYNAMICS }}
+        user-name: ${{ env.USER_DYNAMICS }}
+        password-secret: ${{ env.PASS_DYNAMICS }}
+        solution-name:  ${{ env.SOLUTION_NAME }}
+        solution-output-file: ${{ env.SOLUTION_EXPORTED_FOLDER }}/${{ env.SOLUTION_NAME }}.zip
+        
+    - name: Unpack Solution
+      uses: microsoft/powerplatform-actions/unpack-solution@v0
+      with:
+        solution-file:  ${{ env.SOLUTION_EXPORTED_FOLDER }}${{ env.SOLUTION_NAME }}.zip
+        solution-folder:  ${{ env.SOLUTION_FOLDER }}${{ env.SOLUTION_NAME }}
+        solution-type: 'Unmanaged'
+        overwrite-files: true           
+
+#    - name: branch-solution, prepare it for a PullRequest
+#      uses: microsoft/powerplatform-actions/branch-solution@0.4.0
+#      with:
+#        solution-folder:  ${{ env.SOLUTION_FOLDER }}${{ env.SOLUTION_NAME }}
+#        solution-target-folder: ${{ env.SOLUTION_TARGET_FOLDER }}${{ env.SOLUTION_NAME }}
+#        repo-token: ${{ secrets.GITHUB_TOKEN }}
+#        allow-empty-commit: true
+        
+    - name: Import solution to prod env
+      uses: microsoft/powerplatform-actions/import-solution@v0
+      with:
+        environment-url: ${{ env.URL_DYNAMICS_PRE }}
+        user-name: ${{ env.USER_DYNAMICS_PRE }}
+        password-secret: ${{ env.PASS_DYNAMICS_PRE }}
+        solution-file:  ${{ env.SOLUTION_EXPORTED_FOLDER }}/${{ env.SOLUTION_NAME }}.zip
+        run-asynchronously: true
+        force-overwrite: true
+        publish-changes: true
+        managed: true
