@@ -8,7 +8,7 @@ jobs:
       URL_DYNAMICS: 'https://pruebasminsait.crm4.dynamics.com'
       USER_DYNAMICS: 'cglopezs@tecxrm.com'
       PASS_DYNAMICS: 'StadRUx2-heT'
-      SOLUTION_NAME: 'TestingGitHub'
+      SOLUTION_NAME: 'usuariosSan'
       SOLUTION_EXPORTED_FOLDER: 'out/exported/'
       SOLUTION_FOLDER: 'out/solutions/'
       SOLUTION_TARGET_FOLDER: 'solutions/'
