@@ -61,8 +61,6 @@ jobs:
         environment-url: ${{ env.URL_DYNAMICS_PRE }}
         user-name: ${{ env.USER_DYNAMICS_PRE }}
         password-secret: ${{ env.PASS_DYNAMICS_PRE }}
-        app-id: ${{env.CLIENT_ID}}
-        tenant-id: ${{env.TENANT_ID}}
         solution-file:  ${{ env.SOLUTION_EXPORTED_FOLDER }}/${{ env.SOLUTION_NAME }}.zip
         run-asynchronously: true
         force-overwrite: true
