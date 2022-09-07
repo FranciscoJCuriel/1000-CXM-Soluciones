@@ -8,6 +8,8 @@ jobs:
       URL_DYNAMICS: 'https://pruebasminsait.crm4.dynamics.com'
       USER_DYNAMICS: 'rlgalvan@tecxrm.com'
       PASS_DYNAMICS: 'Indra2507'
+      CLIENT_ID: 'd4416ad8-8ed5-4776-95b7-80985180bcc0'
+      TENANT_ID: 'ec6b17bb-11d0-4195-abd0-521c69a5d1fd'
       SOLUTION_NAME: 'DevPruebaSan'
       SOLUTION_EXPORTED_FOLDER: 'out/exported/'
       SOLUTION_FOLDER: 'out/solutions/'
@@ -59,6 +61,8 @@ jobs:
         environment-url: ${{ env.URL_DYNAMICS_PRE }}
         user-name: ${{ env.USER_DYNAMICS_PRE }}
         password-secret: ${{ env.PASS_DYNAMICS_PRE }}
+        app-id: ${{env.CLIENT_ID}}
+        tenant-id: ${{env.TENANT_ID}}
         solution-file:  ${{ env.SOLUTION_EXPORTED_FOLDER }}/${{ env.SOLUTION_NAME }}.zip
         run-asynchronously: true
         force-overwrite: true
