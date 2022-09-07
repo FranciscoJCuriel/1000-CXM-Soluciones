@@ -14,9 +14,9 @@ jobs:
       SOLUTION_EXPORTED_FOLDER: 'out/exported/'
       SOLUTION_FOLDER: 'out/solutions/'
       SOLUTION_TARGET_FOLDER: 'solutions/'
-      URL_DYNAMICS_PRODUCTION: 'https://orgc5b8a32c.crm.dynamics.com/main.aspx'
-      USER_DYNAMICS_PRODUCTION: 'pipetestsntI@TESTMIN967.onmicrosoft.com'
-      PASS_DYNAMICS_PRODUCTION: 'TrialSNT0108'
+      URL_DYNAMICS_PRODUCTION: 'https://org392b3613.crm4.dynamics.com/main.aspx'
+      USER_DYNAMICS_PRODUCTION: 'TestTestSNT@TESTMINDevOps.onmicrosoft.com'
+      PASS_DYNAMICS_PRODUCTION: 'TrialSNT0609'
       
   steps:     
     - uses: actions/checkout@v2
