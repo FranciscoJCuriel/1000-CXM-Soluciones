@@ -36,13 +36,14 @@ jobs:
         password-secret: ${{ env.PASS_DYNAMICS }}
         solution-name:  ${{ env.SOLUTION_NAME }}
         solution-output-file: ${{ env.SOLUTION_EXPORTED_FOLDER }}/${{ env.SOLUTION_NAME }}.zip
+        managed: true
         
     - name: Unpack Solution
       uses: microsoft/powerplatform-actions/unpack-solution@v0
       with:
         solution-file:  ${{ env.SOLUTION_EXPORTED_FOLDER }}${{ env.SOLUTION_NAME }}.zip
         solution-folder:  ${{ env.SOLUTION_FOLDER }}${{ env.SOLUTION_NAME }}
-        solution-type: 'Unmanaged'
+        solution-type: 'Managed'
         overwrite-files: true           
 
 #    - name: branch-solution, prepare it for a PullRequest
