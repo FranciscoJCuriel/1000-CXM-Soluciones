@@ -63,4 +63,6 @@ jobs:
         run-asynchronously: true
         force-overwrite: true
         publish-changes: true
-        managed: true
+        command: npm i
+        attempt_limit: 3
+        attempt_delay: 2000
