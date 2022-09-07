@@ -12,9 +12,9 @@ jobs:
       SOLUTION_EXPORTED_FOLDER: 'out/exported/'
       SOLUTION_FOLDER: 'out/solutions/'
       SOLUTION_TARGET_FOLDER: 'solutions/'
-      URL_DYNAMICS_PRODUCTION: 'https://org392b3613.crm4.dynamics.com/main.aspx'
-      USER_DYNAMICS_PRODUCTION: 'TestTestSNT@TESTMINDevOps.onmicrosoft.com'
-      PASS_DYNAMICS_PRODUCTION: 'TrialSNT0609'
+      URL_DYNAMICS_PRODUCTION: 'https://orgc5b8a32c.crm.dynamics.com/main.aspx'
+      USER_DYNAMICS_PRODUCTION: 'pipetestsntI@TESTMIN967.onmicrosoft.com'
+      PASS_DYNAMICS_PRODUCTION: 'TrialSNT0108'
       
   steps:     
     - uses: actions/checkout@v2
@@ -36,14 +36,13 @@ jobs:
         password-secret: ${{ env.PASS_DYNAMICS }}
         solution-name:  ${{ env.SOLUTION_NAME }}
         solution-output-file: ${{ env.SOLUTION_EXPORTED_FOLDER }}/${{ env.SOLUTION_NAME }}.zip
-        managed: true
-        
+               
     - name: Unpack Solution
       uses: microsoft/powerplatform-actions/unpack-solution@v0
       with:
         solution-file:  ${{ env.SOLUTION_EXPORTED_FOLDER }}${{ env.SOLUTION_NAME }}.zip
         solution-folder:  ${{ env.SOLUTION_FOLDER }}${{ env.SOLUTION_NAME }}
-        solution-type: 'Managed'
+        solution-type: 'Unmanaged'
         overwrite-files: true           
 
 #    - name: branch-solution, prepare it for a PullRequest
@@ -64,6 +63,4 @@ jobs:
         run-asynchronously: true
         force-overwrite: true
         publish-changes: true
-        command: npm i
-        attempt_limit: 3
-        attempt_delay: 2000
+        managed: true
