@@ -34,18 +34,18 @@ jobs:
         password-secret: ${{ env.PASS_DYNAMICS }}
         
     - name: SonarQube Scan QAT
-      uses: kitabisa/sonarqube-action@v1.2.0
+      uses: sonarsource/sonarcloud-github-action@master
       with:
         host: ${{ env.HOST_SONAR_QAT }}
         
     - name: SonarQube Scan PANDORA
-      uses: kitabisa/sonarqube-action@v1.2.0
+      uses: sonarsource/sonarcloud-github-action@master
       with:
         host: ${{ env.HOST_SONAR_PANDORA }}
         
      
     - name: SonarQube Scan WAS
-      uses: kitabisa/sonarqube-action@v1.2.0
+      uses: sonarsource/sonarcloud-github-action@master
       with:
         host: ${{ env.HOST_SONAR_WAS }}
         
