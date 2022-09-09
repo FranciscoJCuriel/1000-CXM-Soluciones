@@ -17,6 +17,9 @@ jobs:
       URL_DYNAMICS_PRODUCTION: 'https://org392b3613.crm4.dynamics.com'
       USER_DYNAMICS_PRODUCTION: 'TestTestSNT@TESTMINDevOps.onmicrosoft.com'
       PASS_DYNAMICS_PRODUCTION: 'TrialSNT0609'
+      HOST_SONAR_QAT: 'https://qatsonarqubeint.mx.corp/'
+      HOST_SONAR_PANDORA: 'http://sonar.pro.pandora.mx.corp/'
+      HOST_SONAR_WAS: 'http://wasatdipvlmx01.mx.corp:9000/'
       
   steps:     
     - uses: actions/checkout@v2
@@ -29,6 +32,22 @@ jobs:
         environment-url: ${{ env.URL_DYNAMICS }}
         user-name: ${{ env.USER_DYNAMICS }}
         password-secret: ${{ env.PASS_DYNAMICS }}
+        
+    - name: SonarQube Scan QAT
+      uses: kitabisa/sonarqube-action@v1.2.0
+      with:
+        host: ${{ env.HOST_SONAR_QAT }}
+        
+    - name: SonarQube Scan PANDORA
+      uses: kitabisa/sonarqube-action@v1.2.0
+      with:
+        host: ${{ env.HOST_SONAR_PANDORA }}
+        
+     
+    - name: SonarQube Scan WAS
+      uses: kitabisa/sonarqube-action@v1.2.0
+      with:
+        host: ${{ env.HOST_SONAR_WAS }}
         
     - name: Export Solution
       uses: microsoft/powerplatform-actions/export-solution@v0
