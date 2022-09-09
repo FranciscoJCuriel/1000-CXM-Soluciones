@@ -34,18 +34,18 @@ jobs:
         password-secret: ${{ env.PASS_DYNAMICS }}
         
     - name: SonarQube Scan QAT
-      uses: microsoft/powerplatform-actions/sonarcloud-github-action@master
+      uses: microsoft/powerplatform-actions/sonarcloud@v0
       with:
         host: ${{ env.URL_SONAR_QAT }}
         
     - name: SonarQube Scan PANDORA
-      uses: microsoft/powerplatform-actions/sonarcloud-github-action@master
+      uses: microsoft/powerplatform-actions/sonarcloud@v0
       with:
         host: ${{ env.URL_SONAR_PANDORA }}
         
      
     - name: SonarQube Scan WAS
-      uses: microsoft/powerplatform-actions/sonarcloud-github-action@master
+      uses: microsoft/powerplatform-actions/sonarcloud@v0
       with:
         host: ${{ env.URL_SONAR_WAS }}
         
