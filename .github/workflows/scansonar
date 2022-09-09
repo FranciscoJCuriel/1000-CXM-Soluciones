@@ -1,0 +1,87 @@
+name: learn-github-actions
+on: [push]
+jobs:
+ build:
+  runs-on: ubuntu-latest   # alternate runner OS is: ubuntu-latest
+  env:
+      RUNNER_DEBUG: 1
+      URL_DYNAMICS: 'https://pruebasminsait.crm4.dynamics.com'
+      USER_DYNAMICS: 'rlgalvan@tecxrm.com'
+      PASS_DYNAMICS: 'Indra2507'
+      CLIENT_ID: 'd4416ad8-8ed5-4776-95b7-80985180bcc0'
+      TENANT_ID: 'ec6b17bb-11d0-4195-abd0-521c69a5d1fd'
+      SOLUTION_NAME: 'DevPruebaSan'
+      SOLUTION_EXPORTED_FOLDER: 'out/exported/'
+      SOLUTION_FOLDER: 'out/solutions/'
+      SOLUTION_TARGET_FOLDER: 'solutions/'
+      URL_DYNAMICS_PRODUCTION: 'https://org392b3613.crm4.dynamics.com'
+      USER_DYNAMICS_PRODUCTION: 'TestTestSNT@TESTMINDevOps.onmicrosoft.com'
+      PASS_DYNAMICS_PRODUCTION: 'TrialSNT0609'
+      URL_SONAR_QAT: 'https://qatsonarqubeint.mx.corp/'
+      URL_SONAR_PANDORA: 'http://sonar.pro.pandora.mx.corp/'
+      URL_SONAR_WAS: 'http://wasatdipvlmx01.mx.corp:9000/'
+      
+  steps:     
+    - uses: actions/checkout@v2
+      with:
+        lfs: true
+        
+    - name: who-am-i action
+      uses: microsoft/powerplatform-actions/who-am-i@v0
+      with:
+        environment-url: ${{ env.URL_DYNAMICS }}
+        user-name: ${{ env.USER_DYNAMICS }}
+        password-secret: ${{ env.PASS_DYNAMICS }}
+        
+    - name: SonarCloud  Scan QAT
+      uses: sonarsource/sonarcloud-github-action@master
+      with:
+        host: ${{ env.URL_SONAR_QAT }}
+        
+    - name: SonarCloud  Scan PANDORA
+      uses: sonarsource/sonarcloud-github-action@master
+      with:
+        host: ${{ env.URL_SONAR_PANDORA }}
+        
+     
+    - name: SonarCloud Scan WAS
+      uses: sonarsource/sonarcloud-github-action@master
+      with:
+        host: ${{ env.URL_SONAR_WAS }}
+        
+    - name: Export Solution
+      uses: microsoft/powerplatform-actions/export-solution@v0
+      with:
+        environment-url: ${{ env.URL_DYNAMICS }}
+        user-name: ${{ env.USER_DYNAMICS }}
+        password-secret: ${{ env.PASS_DYNAMICS }}
+        solution-name:  ${{ env.SOLUTION_NAME }}
+        solution-output-file: ${{ env.SOLUTION_EXPORTED_FOLDER }}/${{ env.SOLUTION_NAME }}.zip
+               
+    - name: Unpack Solution
+      uses: microsoft/powerplatform-actions/unpack-solution@v0
+      with:
+        solution-file:  ${{ env.SOLUTION_EXPORTED_FOLDER }}${{ env.SOLUTION_NAME }}.zip
+        solution-folder:  ${{ env.SOLUTION_FOLDER }}${{ env.SOLUTION_NAME }}
+        solution-type: 'Unmanaged'
+        overwrite-files: true           
+
+#    - name: branch-solution, prepare it for a PullRequest
+#      uses: microsoft/powerplatform-actions/branch-solution@0.4.0
+#      with:
+#        solution-folder:  ${{ env.SOLUTION_FOLDER }}${{ env.SOLUTION_NAME }}
+#        solution-target-folder: ${{ env.SOLUTION_TARGET_FOLDER }}${{ env.SOLUTION_NAME }}
+#        repo-token: ${{ secrets.GITHUB_TOKEN }}
+#        allow-empty-commit: true
+        
+    - name: Import solution to prod env
+      uses: microsoft/powerplatform-actions/import-solution@v0
+      with:
+        environment-url: ${{ env.URL_DYNAMICS_PRE }}
+        user-name: ${{ env.USER_DYNAMICS_PRE }}
+        password-secret: ${{ env.PASS_DYNAMICS_PRE }}
+        solution-file:  ${{ env.SOLUTION_EXPORTED_FOLDER }}/${{ env.SOLUTION_NAME }}.zip
+        run-asynchronously: true
+        force-overwrite: true
+        publish-changes: true
+        managed: true
