@@ -20,6 +20,7 @@ jobs:
       URL_SONAR_QAT: 'https://qatsonarqubeint.mx.corp/'
       URL_SONAR_PANDORA: 'http://sonar.pro.pandora.mx.corp/'
       URL_SONAR_WAS: 'http://wasatdipvlmx01.mx.corp:9000/'
+      SONAR_TOKEN : '6701540e6f9e9f039ba8038f8f46bd2b2ad6bd58'
       
   steps:     
     - uses: actions/checkout@v2
@@ -47,6 +48,7 @@ jobs:
     - name: SonarCloud Scan WAS
       uses: sonarsource/sonarcloud-github-action@master
       with:
-        environment-url: ${{ env.URL_SONAR_WAS }}
+        host: ${{ env.URL_SONAR_WAS }}
+        token: ${{ env.SONAR_TOKEN }}
         
   
