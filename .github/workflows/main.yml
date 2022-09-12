@@ -30,7 +30,7 @@ jobs:
         lfs: true
         
     - name: who-am-i action
-      uses: nerdify/ping-action@1.0.0
+      uses: atymic/sitemap-ping-action@master
       with:
-        PING_URL: ${{ env.URL_SONAR_WAS }}
+        sitemap-url: ${{ env.URL_SONAR_WAS }}
       
