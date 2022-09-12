@@ -34,6 +34,6 @@ jobs:
       with:
         url: ${{ env.URL_SONAR_WAS }}
         follow-redirect: false
-        max-attempts: 3
+        max-attempts: 5
         retry-delay: 5s
       
