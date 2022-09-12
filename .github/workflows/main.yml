@@ -33,13 +33,4 @@ jobs:
       uses: nerdify/ping-action@1.0.0
       with:
         PING_URL: ${{ env.URL_SONAR_WAS }}
-        user-name: ${{ env.SONAR_USUARIO }}
-        password-secret: ${{ env.SONAR_PASS }}
-    
-    - name: SonarCloud Scan WAS
-      uses: sonarsource/sonarcloud-github-action@master
-      with:
-        host: ${{ env.URL_SONAR_WAS }}
-        token: ${{ env.SONAR_TOKEN }}
-        
-  
+      
