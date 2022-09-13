@@ -1,9 +1,10 @@
 name: learn-test-github-actions
-on: 
- push:
+on: [push]
+  branches:
+      - 'develop'
   paths:
-    - '**.cs'
-    - '**.csproj'
+   - '**.cs'
+   - '**.csproj'
 jobs:
  build:
   runs-on: ubuntu-latest   # alternate runner OS is: ubuntu-latest
